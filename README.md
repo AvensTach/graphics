@@ -4,7 +4,7 @@ This project was created as a series of laboratory works for the university cour
 
 ## Description
 
-The application provides a command-line interface to apply various effects and modifications to images. It's organized "labs," each with a different set of functionalities. The user can select one or more images, and then choose from a menu of operations to apply to them. The processed images are saved to a user-specified output directory.
+The application provides a command-line interface to apply various effects and modifications to images. It's organized in "labs" each with a different set of functionalities. The user can select one or more images, and then choose from a menu of operations to apply to them. The processed images are saved to a user-specified output directory.
 
 ## Features
 
