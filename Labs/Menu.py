@@ -164,7 +164,7 @@ class Menu:
         print("2. Inverse crop")
         print("3. Slice")
 
-        choice = input("Ваш вибір: ")
+        choice = input("Your choice: ")
         match choice:
             case '1':
                 self.lab2_processor.crop_image()
@@ -173,5 +173,5 @@ class Menu:
             case '3':
                 self.lab2_processor.slice_image()
             case _:
-                print("Неправильна команда.")
+                print("Wrong command.")
                 self.crop_menu()

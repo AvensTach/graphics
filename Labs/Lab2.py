@@ -19,7 +19,7 @@ class Lab2Processor:
             if not 0.0 <= alpha_factor <= 1.0:
                 raise ValueError
         except ValueError:
-            print("Wrong value! Input number from 0.0(fully transparent) to 1.0 (not transparent).")
+            print("Wrong value! Input number from 0.0(not transparent) to 1.0 (fully transparent).")
             return
 
         for i in files:
@@ -34,7 +34,7 @@ class Lab2Processor:
             new_pixels = []
             for item in pixels:  # item = (R, G, B, A)
                 # Change only ALPHA chanel!!!
-                new_pixels.append((item[0], item[1], item[2], int(item[3] * alpha_factor)))
+                new_pixels.append((item[0], item[1], item[2], int(255 * alpha_factor)))
 
             img.putdata(new_pixels)
 
