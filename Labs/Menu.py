@@ -1,4 +1,4 @@
-import Lab1, Lab2
+import Lab1, Lab2, Lab3
 
 
 class Menu:
@@ -11,11 +11,13 @@ class Menu:
         self.choice = None  # Stores the current user menu choice.
         self.lab1_processor = Lab1.Lab1Processor()  # Initialize the image processing core for lab 1.
         self.lab2_processor = Lab2.Lab2Processor()  # Initialize the image processing core for lab 2.
+        self.lab3_processor = Lab3.Lab3Processor()  # Initialize the image processing core for lab 3.
 
     def main_menu(self):
         print("\nWhich lab you want to run?")
         print("1. lab 1?")
         print("2. lab 2?")
+        print("3. lab 3?")
         print("0. exit program")
         self.choice = input('Input your choice: ')
         match self.choice:
@@ -23,6 +25,8 @@ class Menu:
                 self.lab1_menu()
             case '2':
                 self.lab2_menu()
+            case '3':
+                self.lab3_menu()
             case '0':
                 return
             case _:
@@ -175,3 +179,45 @@ class Menu:
             case _:
                 print("Wrong command.")
                 self.crop_menu()
+
+    def lab3_menu(self):
+        print("\nWhat do you want to do?")
+        print("1. Combine images")
+        print("2. Add watermark")
+        print("3. Create slideshow")
+        self.choice = input('Input your choice: ')
+        match self.choice:
+            case '1':
+                self.lab3_processor.combine_images()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+                elif self.choice == 'N':
+                    return
+                else:
+                    print("Wrong command")
+                    self.main_menu()
+
+            case '2':
+                self.lab3_processor.add_watermark()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+                elif self.choice == 'N':
+                    return
+                else:
+                    print("Wrong command")
+                    self.main_menu()
+            case '3':
+                self.lab3_processor.create_slideshow()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+                elif self.choice == 'N':
+                    return
+                else:
+                    print("Wrong command")
+                    self.main_menu()
+            case _:
+                print("Wrong command")
+                self.main_menu()
