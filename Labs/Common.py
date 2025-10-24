@@ -12,7 +12,13 @@ ALL_IMAGE_FORMATS_MAP = {
     'tiff': '.tiff',
     'psd': '.psd',
 }
-
+FONT_MAP = {
+            "1": ("Arial", "arial.ttf"),
+            "2": ("Times New Roman", "times.ttf"),
+            "3": ("Courier New", "cour.ttf"),
+            "4": ("Verdana", "verdana.ttf"),
+            "5": ("Comic Sans", "comic.ttf")
+        }
 
 class Service:
     """

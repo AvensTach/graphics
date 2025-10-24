@@ -1,5 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont, ImageTk
-from Common import Service, ALL_IMAGE_FORMATS_MAP
+from Common import Service, ALL_IMAGE_FORMATS_MAP, FONT_MAP
 import pathlib
 import os
 import tkinter as tk
@@ -63,6 +63,12 @@ class Lab3Processor:
         except Exception as e:
             print(f"An error occurred during image combining: {e}")
 
+    import pathlib
+    from PIL import Image, ImageDraw, ImageFont
+
+    # Assuming 'self.service' is defined elsewhere and has
+    # get_images() and get_output_dir() methods.
+
     def add_watermark(self):
         """
         Task 2: Add a text watermark to an image.
@@ -70,10 +76,26 @@ class Lab3Processor:
         files = self.service.get_images()
         output_dir = self.service.get_output_dir()
 
+
         # Get parameters from the user
         try:
             text = input("Enter watermark text: ")
             pos_choice = input("Position (TL - top-left, C - center, BR - bottom-right): ").upper()
+
+            # --- NEW: Font choice input ---
+            print("\nSelect a font:")
+            for key, (name, _) in FONT_MAP.items():
+                print(f"  {key}: {name}")
+
+            # Default to "1" (Arial) if input is empty or invalid
+            font_choice = input(f"Enter font choice (1-{len(FONT_MAP)}, default 1): ") or "1"
+
+            # Get the font details, default to Arial (key "1") if invalid key
+            chosen_font_tuple = FONT_MAP.get(font_choice, FONT_MAP["1"])
+            font_filename = chosen_font_tuple[1]
+            font_display_name = chosen_font_tuple[0]
+            # --- END NEW ---
+
             font_size = int(input("Enter font size (e.g., 36): "))
             opacity = int(input("Enter opacity (0-255, 0=transparent, 255=opaque): "))
             color_str = input("Enter color (R,G,B), e.g., '255,255,255': ")
@@ -85,13 +107,14 @@ class Lab3Processor:
             print("Invalid input. Please check your numbers.")
             return
 
-        # Try to load the font
+        # --- MODIFIED: Try to load the CHOSEN font ---
         try:
-            # Arial is available on most systems.
-            font = ImageFont.truetype("arial.ttf", font_size)
+            font = ImageFont.truetype(font_filename, font_size)
+            print(f"Using font: {font_display_name}")
         except IOError:
-            print("Arial font not found, using default font.")
+            print(f"{font_display_name} ({font_filename}) font not found, using default font.")
             font = ImageFont.load_default()
+        # --- END MODIFIED ---
 
         for i in files:
             try:
