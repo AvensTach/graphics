@@ -1,4 +1,4 @@
-import Lab1, Lab2, Lab3
+import Lab1, Lab2, Lab3, Lab4
 
 
 class Menu:
@@ -12,12 +12,14 @@ class Menu:
         self.lab1_processor = Lab1.Lab1Processor()  # Initialize the image processing core for lab 1.
         self.lab2_processor = Lab2.Lab2Processor()  # Initialize the image processing core for lab 2.
         self.lab3_processor = Lab3.Lab3Processor()  # Initialize the image processing core for lab 3.
+        self.lab4_processor = Lab4.Lab4Processor()  # Initialize the image processing core for lab 4.
 
     def main_menu(self):
         print("\nWhich lab you want to run?")
         print("1. lab 1?")
         print("2. lab 2?")
         print("3. lab 3?")
+        print("4. lab 4?")
         print("0. exit program")
         self.choice = input('Input your choice: ')
         match self.choice:
@@ -27,6 +29,8 @@ class Menu:
                 self.lab2_menu()
             case '3':
                 self.lab3_menu()
+            case '4':
+                self.lab4_menu()
             case '0':
                 return
             case _:
@@ -221,3 +225,57 @@ class Menu:
             case _:
                 print("Wrong command")
                 self.main_menu()
+
+    def lab4_menu(self):
+        print("\nLab 4: Image Analysis & Simple Conversion")
+        print("1. Show Image(s)")
+        print("2. Show Brightness Matrix")
+        print("3. Show Color Histogram")
+        print("4. Binarize Image (Чорно-біле)")
+        print("5. Convert to Grayscale (Відтінки сірого)")
+        print("6. Invert Image (Негатив)")
+        print("7. Show Grayscale Histogram")
+        print("0. Back to Main Menu")
+        self.choice = input('Input your choice: ')
+
+        match self.choice:
+            case '1':
+                self.lab4_processor.show_images()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '2':
+                self.lab4_processor.show_brightness_matrix()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '3':
+                self.lab4_processor.show_color_histogram()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '4':
+                self.lab4_processor.binarize_image()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '5':
+                self.lab4_processor.convert_to_grayscale()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '6':
+                self.lab4_processor.invert_image()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '7':
+                self.lab4_processor.show_grayscale_histogram()
+                self.choice = input("continue (Y/N):").upper()
+                if self.choice == 'Y':
+                    self.main_menu()
+            case '0':
+                self.main_menu()
+            case _:
+                print("Wrong command, try again.")
+                self.lab4_menu()
