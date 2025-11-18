@@ -7,8 +7,8 @@ import pathlib
 
 class Lab4Processor:
     """
-    Клас для операцій аналізу зображень та простих перетворень
-    (Лабораторна 4).
+    Class for image analysis operations and simple transformations
+    (Lab 4).
     """
 
     def __init__(self):
@@ -16,89 +16,89 @@ class Lab4Processor:
 
     def show_images(self):
         """
-        Завдання 1: Виведення первинного кольорового зображення на екран.
+        Task 1: Display the original color image on the screen.
         """
         files = self.service.get_images()
         if not files:
-            print("Файли не вибрано.")
+            print("Files not selected.")
             return
 
-        print(f"Показ {len(files)} зображень...")
+        print(f"Showing {len(files)} images...")
         for i in files:
             try:
                 img = Image.open(i)
-                # .show() відкриває зображення у стандартному переглядачі
+                # .show() opens the image in the standard viewer
                 img.show(title=pathlib.Path(i).name)
             except Exception as e:
-                print(f"Не вдалося відкрити {i}: {e}")
+                print(f"Failed to open {i}: {e}")
 
     def show_brightness_matrix(self):
         """
-        Завдання 2: Виведення на екран матриці значень яскравості.
+        Task 2: Display the brightness value matrix on the screen.
         """
         files = self.service.get_images()
         if not files:
-            print("Файли не вибрано.")
+            print("Files not selected.")
             return
 
         for i in files:
             try:
                 img = Image.open(i)
-                # Конвертуємо в градації сірого ('L' - luminance)
+                # Convert to grayscale ('L' - luminance)
                 grayscale_img = img.convert('L')
 
-                # Конвертуємо зображення в матрицю NumPy
+                # Convert image to NumPy matrix
                 brightness_matrix = np.array(grayscale_img)
 
-                print(f"\n--- Матриця яскравості для {pathlib.Path(i).name} ---")
-                # np.set_printoptions(threshold=np.inf) # Виключає обмеження виводу
+                print(f"\n--- Brightness Matrix for {pathlib.Path(i).name} ---")
+                # np.set_printoptions(threshold=np.inf) # Uncomments to disable output limit
                 print(brightness_matrix)
 
             except Exception as e:
-                print(f"Не вдалося обробити {i}: {e}")
+                print(f"Failed to process {i}: {e}")
 
     def show_color_histogram(self):
         """
-        Завдання 3: Побудова гістограми яскравості кольорового зображення.
+        Task 3: Construct a brightness histogram for a color image.
         """
         files = self.service.get_images()
         if not files:
-            print("Файли не вибрано.")
+            print("Files not selected.")
             return
 
         for i in files:
             try:
                 img = Image.open(i)
-                # Переконуємося, що зображення в RGB, щоб розділити канали
+                # Ensure image is RGB to split channels
                 rgb_img = img.convert('RGB')
 
-                # .histogram() повертає список з 256 значень для кожного каналу
-                # Ми розділяємо канали, щоб отримати 3 окремі гістограми
+                # .histogram() returns a list of 256 values for each channel
+                # We split channels to get 3 separate histograms
                 r_hist = rgb_img.getchannel('R').histogram()
                 g_hist = rgb_img.getchannel('G').histogram()
                 b_hist = rgb_img.getchannel('B').histogram()
 
                 plt.figure(figsize=(10, 6))
-                plt.title(f'Кольорова гістограма для {pathlib.Path(i).name}')
+                plt.title(f'Color Histogram for {pathlib.Path(i).name}')
                 plt.plot(r_hist, color='red', alpha=0.7, label='Red')
                 plt.plot(g_hist, color='green', alpha=0.7, label='Green')
                 plt.plot(b_hist, color='blue', alpha=0.7, label='Blue')
-                plt.xlabel('Значення пікселя')
-                plt.ylabel('Частота')
+                plt.xlabel('Pixel Value')
+                plt.ylabel('Frequency')
                 plt.legend()
                 plt.grid(True)
-                plt.show()  # Відкриває вікно Matplotlib з графіком
+                plt.show()  # Opens Matplotlib window with the graph
 
             except Exception as e:
-                print(f"Не вдалося побудувати гістограму для {i}: {e}")
+                print(f"Failed to plot histogram for {i}: {e}")
 
     def show_grayscale_histogram(self):
         """
-        Завдання 4 (частково): Побудова гістограми в градаціях сірого.
+        Task 4 (partial): Construct a grayscale histogram.
         """
         files = self.service.get_images()
         if not files:
-            print("Файли не вибрано.")
+            print("Files not selected.")
             return
 
         for i in files:
@@ -106,24 +106,24 @@ class Lab4Processor:
                 img = Image.open(i)
                 grayscale_img = img.convert('L')
 
-                # .histogram() для 'L' режиму повертає одну гістограму
+                # .histogram() for 'L' mode returns a single histogram
                 grayscale_hist = grayscale_img.histogram()
 
                 plt.figure(figsize=(10, 6))
-                plt.title(f'Гістограма в градаціях сірого для {pathlib.Path(i).name}')
+                plt.title(f'Grayscale Histogram for {pathlib.Path(i).name}')
                 plt.plot(grayscale_hist, color='black')
-                plt.xlabel('Значення яскравості (0-255)')
-                plt.ylabel('Частота')
+                plt.xlabel('Brightness Value (0-255)')
+                plt.ylabel('Frequency')
                 plt.fill_between(range(256), grayscale_hist, color='gray', alpha=0.5)
                 plt.grid(True)
                 plt.show()
 
             except Exception as e:
-                print(f"Не вдалося побудувати гістограму для {i}: {e}")
+                print(f"Failed to plot histogram for {i}: {e}")
 
     def convert_to_grayscale(self):
         """
-        Завдання 4: Перехід до відтінків сірого.
+        Task 4: Convert to shades of gray.
         """
         files = self.service.get_images()
         output_dir = self.service.get_output_dir()
@@ -138,14 +138,14 @@ class Lab4Processor:
                 filename = pathlib.Path(i).stem + "_grayscale" + ".png"
                 output_path = pathlib.Path(output_dir) / filename
                 grayscale_img.save(output_path)
-                print(f"Збережено в градаціях сірого: {filename}")
+                print(f"Saved in grayscale: {filename}")
 
             except Exception as e:
-                print(f"Не вдалося конвертувати {i}: {e}")
+                print(f"Failed to convert {i}: {e}")
 
     def invert_image(self):
         """
-        Завдання 4: Негатив.
+        Task 4: Negative.
         """
         files = self.service.get_images()
         output_dir = self.service.get_output_dir()
@@ -155,7 +155,7 @@ class Lab4Processor:
         for i in files:
             try:
                 img = Image.open(i)
-                # Invert працює коректно з RGB
+                # Invert works correctly with RGB
                 rgb_img = img.convert('RGB')
 
                 inverted_img = ImageOps.invert(rgb_img)
@@ -163,14 +163,14 @@ class Lab4Processor:
                 filename = pathlib.Path(i).stem + "_inverted" + ".png"
                 output_path = pathlib.Path(output_dir) / filename
                 inverted_img.save(output_path)
-                print(f"Збережено негатив: {filename}")
+                print(f"Saved negative: {filename}")
 
             except Exception as e:
-                print(f"Не вдалося інвертувати {i}: {e}")
+                print(f"Failed to invert {i}: {e}")
 
     def binarize_image(self):
         """
-        Завдання 4: Бінаризація (чорно-біле).
+        Task 4: Binarization (Black and White).
         """
         files = self.service.get_images()
         output_dir = self.service.get_output_dir()
@@ -178,12 +178,12 @@ class Lab4Processor:
             return
 
         try:
-            # Запитуємо у користувача поріг
-            threshold = int(input("Введіть поріг бінаризації (0-255, за замовчуванням 128): ") or 128)
+            # Ask user for threshold
+            threshold = int(input("Enter binarization threshold (0-255, default 128): ") or 128)
             if not 0 <= threshold <= 255:
                 raise ValueError
         except ValueError:
-            print("Некоректне значення. Використано поріг 128.")
+            print("Invalid value. Using threshold 128.")
             threshold = 128
 
         for i in files:
@@ -191,14 +191,14 @@ class Lab4Processor:
                 img = Image.open(i)
                 grayscale_img = img.convert('L')
 
-                # Використовуємо .point() для застосування порогу
-                # '1' - режим 1-бітного зображення (чорний або білий)
+                # Use .point() to apply threshold
+                # '1' - 1-bit image mode (black or white)
                 binarized_img = grayscale_img.point(lambda p: 255 if p > threshold else 0, '1')
 
                 filename = pathlib.Path(i).stem + "_binarized" + ".png"
                 output_path = pathlib.Path(output_dir) / filename
                 binarized_img.save(output_path)
-                print(f"Збережено бінаризоване зображення: {filename}")
+                print(f"Saved binarized image: {filename}")
 
             except Exception as e:
-                print(f"Не вдалося бінаризувати {i}: {e}")
+                print(f"Failed to binarize {i}: {e}")

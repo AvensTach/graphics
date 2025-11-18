@@ -1,6 +1,6 @@
 # Image Processor for "Computer Graphics and Visualization"
 
-This project was created as a series of laboratory works for the university course "Computer Graphics and Visualization)". It is a console-based image processing application written in Python that allows users to perform a variety of image manipulation tasks through a simple, interactive menu.
+This project was created as a series of laboratory works for the university course "Computer Graphics and Visualization". It is a console-based image processing application written in Python that allows users to perform a variety of image manipulation tasks through a simple, interactive menu.
 
 ## Description
 
@@ -9,34 +9,46 @@ The application provides a command-line interface to apply various effects and m
 ## Features
 
 ### Lab 1: Core Image Manipulations
-
 * **Format Conversion:** Convert images between various formats like PNG, JPEG, BMP, GIF, and TIFF.
-* **Resizing:**
-    * Resize images by specifying a new height (maintaining aspect ratio).
-    * Resize images by specifying a new width (maintaining aspect ratio).
-    * Resize images by specifying both a new width and height.
-* **Color Replacement:** Replace a specific RGB color in an image with another color.
-* **Color Balance:** Adjust the red, green, or blue channels of an image, or adjust the overall brightness.
+* **Resizing:** Resize images by height, width, or both (aspect ratio handled).
+* **Color Replacement:** Replace a specific RGB color in an image with another.
+* **Color Balance:** Adjust R, G, B channels or overall brightness.
 
 ### Lab 2: Advanced Image Manipulations
+* **Transparency:** Modify the alpha channel of an image.
+* **Cropping:** Standard crop, inverse crop (transparent hole), and slicing images.
+* **Contrast Enhancement:** Increase or decrease image contrast.
 
-* **Transparency:** Add or modify the alpha channel of an image to make it more or less transparent.
-* **Cropping:**
-    * Crop images by specifying the coordinates of the desired area.
-    * Perform an inverse crop, making the selected area transparent.
-    * Slice an image into multiple vertical parts.
-* **Contrast Enhancement:** Increase or decrease the contrast of an image.
+### Lab 3: Composition & Presentation
+* **Combine Images:** Join two images horizontally or vertically.
+* **Watermarking:** Add text watermarks with customizable font, opacity, position, and color.
+* **Slideshow:** View selected images in a simple slideshow with adjustable delay.
+
+### Lab 4: Analysis & Simple Conversion
+* **Analysis:**
+    * Display images using the default viewer.
+    * Output the brightness matrix (NumPy array) to the console.
+    * Generate and display color and grayscale histograms (using Matplotlib).
+* **Conversions:**
+    * **Binarization:** Convert images to black and white based on a threshold.
+    * **Grayscale:** Convert color images to shades of gray.
+    * **Negative:** Invert the colors of an image.
+
+### Lab 5: Filtering & Edge Detection
+* **Edge Detection:** Implementation of the **Roberts Cross Operator** (Variant 5) to highlight edges in images.
 
 ## Requirements
 
 * Python 3
 * Pillow (the Python Imaging Library fork)
-* Tkinter (for file dialogs)
+* Tkinter (usually included with Python)
+* NumPy (for matrix operations in Lab 4 & 5)
+* Matplotlib (for histograms in Lab 4)
 
 You can install the required libraries using pip:
 
 ```bash
-pip install Pillow
+pip install Pillow numpy matplotlib
 ```
 ## How to run
 1. Navigate to the [Labs](https://github.com/AvensTach/graphics/tree/main/Labs) directory.
