@@ -1,4 +1,4 @@
-import Lab1, Lab2, Lab3, Lab4, Lab5
+import Lab1, Lab2, Lab3, Lab4, Lab5, Lab6
 
 
 class Menu:
@@ -9,11 +9,14 @@ class Menu:
 
     def __init__(self):
         self.choice = None  # Stores the current user menu choice.
-        self.lab1_processor = Lab1.Lab1Processor()  # Initialize Lab 1 core.
-        self.lab2_processor = Lab2.Lab2Processor()  # Initialize Lab 2 core.
-        self.lab3_processor = Lab3.Lab3Processor()  # Initialize Lab 3 core.
-        self.lab4_processor = Lab4.Lab4Processor()  # Initialize Lab 4 core.
-        self.lab5_processor = Lab5.Lab5Processor()  # Initialize Lab 5 core.
+        
+        # Initialize Labs cores.
+        self.lab1_processor = Lab1.Lab1Processor()
+        self.lab2_processor = Lab2.Lab2Processor()
+        self.lab3_processor = Lab3.Lab3Processor()
+        self.lab4_processor = Lab4.Lab4Processor()
+        self.lab5_processor = Lab5.Lab5Processor()
+        self.lab6_processor = Lab6.Lab6Processor()
 
     def main_menu(self):
         print("\nWhich lab you want to run?")
@@ -22,6 +25,7 @@ class Menu:
         print("3. Lab 3 (Watermark & Slideshow)")
         print("4. Lab 4 (Analysis & Conversion)")
         print("5. Lab 5 (Filtering & Edge Detection)")
+        print("6. Lab 6 (Noise Reduction Analysis)")
         print("0. Exit program")
         self.choice = input('Input your choice: ')
         match self.choice:
@@ -35,14 +39,13 @@ class Menu:
                 self.lab4_menu()
             case '5':
                 self.lab5_menu()
+            case '6':  # <--- Обробка вибору
+                self.lab6_menu()
             case '0':
                 return
             case _:
                 print("Wrong command, try again.")
                 self.main_menu()
-
-    # ... [Lab 1, 2, 3 menus remain unchanged, copy them from your existing file if needed] ...
-    # I will include the full file structure for clarity, ensuring Lab 3, 4 (translated headers) and 5 are here.
 
     def lab1_menu(self):
         print("\n--- Lab 1 Menu ---")
@@ -227,3 +230,20 @@ class Menu:
         """Helper to ask for continuation"""
         choice = input("continue (Y/N):").upper()
         return choice == 'Y'
+
+
+    def lab6_menu(self):
+        print("\n--- Lab 6: Noise Reduction Analysis ---")
+        print("1. Run Filter Analysis (Linear & Non-Linear MSE)")
+        print("0. Back to Main Menu")
+        self.choice = input('Input your choice: ')
+
+        match self.choice:
+            case '1':
+                self.lab6_processor.run_analysis()
+                if self.continue_prompt(): self.main_menu()
+            case '0':
+                self.main_menu()
+            case _:
+                print("Wrong command, try again.")
+                self.lab6_menu()
